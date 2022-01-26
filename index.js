@@ -1,7 +1,6 @@
 const express = require('express');
 var cors = require('cors')
 require('./db/connection');
-const Branch = require('./models/branchModel');
 const adminRouter = require('./routeHandler/adminRoute/adminRouter');
 
 const app = express();
