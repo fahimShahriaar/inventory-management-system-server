@@ -19,15 +19,17 @@ app.get('/', (req, res) => {
 });
 
 // POST a new branch
-try {
-    app.post('/branch', async (req, res) => {
+app.post('/branch', async (req, res) => {
+    try {
         const branch = new Branch(req.body);
         const result = await branch.save();
-        res.status(201).send(result);
-    });
-} catch (err) {
-    res.status(400).send(err);
-}
+        res.status(201).json(result);
+    } catch (error) {
+        res.status(500).json({ error })
+    }
+
+
+});
 
 // GET ALL DATA
 try {
@@ -40,5 +42,5 @@ try {
 }
 
 app.listen(5000, () => {
-    console.log('listen port on 8000')
+    console.log('listen port on 5000')
 })
