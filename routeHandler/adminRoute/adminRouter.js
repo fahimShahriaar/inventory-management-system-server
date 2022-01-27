@@ -14,7 +14,7 @@ adminRouter.put('/branch/:id', async (req, res) => {
         console.log(req.params.id);
         const result = await Branch.updateOne(
             { _id: req.params.id },
-            { $push: { store: req.body } }
+            { $push: { stores: req.body } }
         );
 
         res.send(result);

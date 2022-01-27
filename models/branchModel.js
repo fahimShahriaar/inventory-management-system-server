@@ -5,11 +5,11 @@ const branchSchema = new mongoose.Schema({
     branchID: String,
     branchName: String,
     branchDesc: String,
-    store: [
+    stores: [
         {
             storeID: String,
             storeName: String,
-            bin: [
+            bins: [
                 {
                     binID: String,
                     binName: String
