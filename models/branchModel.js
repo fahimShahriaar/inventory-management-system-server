@@ -7,10 +7,16 @@ const branchSchema = new mongoose.Schema({
     branchDesc: String,
     stores: [
         {
+            branchID: String,
+            branchName: String,
             storeID: String,
             storeName: String,
             bins: [
                 {
+                    branchID: String,
+                    branchName: String,
+                    storeID: String,
+                    storeName: String,
                     binID: String,
                     binName: String
                 }

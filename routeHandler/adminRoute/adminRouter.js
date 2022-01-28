@@ -7,6 +7,7 @@ adminRouter.get('/dashboard', async (req, res) => {
     res.send("Admin dashboard");
 });
 
+// Create Store
 adminRouter.put('/branch/:id', async (req, res) => {
     try {
         console.log("req body", req.body);
@@ -27,24 +28,41 @@ adminRouter.put('/branch/:id', async (req, res) => {
         //         }
         //     }
         // })
-
-        // UPDATE branch here
-        // const storeID = req.body.newStoreState.storeID;
-        // const storeName = req.body.newStoreState.storeName;
-        // const updatedBranch = await Todo.updateOne({ _id: req.params.id }, {
-        //     $set: {
-        //         store: {
-        //             storeID,
-        //             storeName
-        //         }
-        //     }
-        // })
-
-
-
     } catch (error) {
         res.send("Error")
     }
+})
+
+// Create BIN
+adminRouter.put('/branch/:branchid/:storeid', async (req, res) => {
+    console.log('branchid', req.params.branchid);
+    console.log('storeid', req.params.storeid);
+    try {
+        const branch = await Branch.findOne({ _id: req.params.branchid });
+        // console.log(branch);
+        const store = branch.stores.find(store => store._id.toString() === req.params.storeid.toString());
+        const index = branch.stores.indexOf(store);
+        // console.log("stores", branch.stores);
+        console.log("store", store);
+        console.log("index", index);
+        // console.log(req.body);
+
+        // const result = await Branch.updateOne(
+        //     { _id: req.params.branchid },
+        //     { $push: { stores: req.body } }
+        // )
+
+        // const result = await Branch.updateOne(
+        //     { _id: req.params.branchid },
+        //     { $push: { stores: req.body } }
+        // );
+
+        res.send(req.body);
+    } catch (error) {
+        res.send("Error")
+    }
+
+    // res.send(req.body);
 })
 
 // GET ALL Branches
@@ -57,7 +75,15 @@ adminRouter.get('/branches', async (req, res) => {
     }
 })
 
-
+// GET a single branch by ID
+adminRouter.get('/branch/:id', async (req, res) => {
+    try {
+        const branch = await Branch.findOne({ _id: req.params.id });
+        res.send(branch)
+    } catch (error) {
+        res.status(500).json({ error });
+    }
+})
 
 // POST a new branch
 adminRouter.post('/branch', async (req, res) => {
