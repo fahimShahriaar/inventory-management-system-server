@@ -6,6 +6,7 @@ const Branch = require('../../models/branchModel');
 // Admin Dashboard
 adminRouter.get('/dashboard', checkLogin, async (req, res) => {
     console.log(req.username);
+    console.log(req.userID);
     res.send("Admin dashboard");
 });
 
