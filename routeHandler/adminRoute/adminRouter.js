@@ -43,21 +43,18 @@ adminRouter.put('/branch/:branchid/:storeid', async (req, res) => {
         const store = branch.stores.find(store => store._id.toString() === req.params.storeid.toString());
         const index = branch.stores.indexOf(store);
         // console.log("stores", branch.stores);
-        console.log("store", store);
-        console.log("index", index);
+
+        console.log(req.body);
+        // console.log("store", store);
+        // console.log("index", index);
+
         // console.log(req.body);
 
-        // const result = await Branch.updateOne(
-        //     { _id: req.params.branchid },
-        //     { $push: { stores: req.body } }
-        // )
-
-        // const result = await Branch.updateOne(
-        //     { _id: req.params.branchid },
-        //     { $push: { stores: req.body } }
-        // );
-
-        res.send(req.body);
+        const result = await Branch.updateOne(
+            { _id: req.params.branchid, "stores._id": req.params.storeid },
+            { $push: { 'stores.$.bins': req.body } }
+        )
+        res.send(result);
     } catch (error) {
         res.send("Error")
     }
