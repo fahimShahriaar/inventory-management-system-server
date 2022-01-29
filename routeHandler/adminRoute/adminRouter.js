@@ -1,9 +1,11 @@
 const express = require('express');
 const adminRouter = express.Router();
+const checkLogin = require('../../middlewares/checkLogin');
 const Branch = require('../../models/branchModel');
 
 // Admin Dashboard
-adminRouter.get('/dashboard', async (req, res) => {
+adminRouter.get('/dashboard', checkLogin, async (req, res) => {
+    console.log(req.username);
     res.send("Admin dashboard");
 });
 
