@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 
@@ -32,13 +32,14 @@ router.post('/login', async (req, res) => {
         const user = await User.find({ username: req.body.username });
         if (user && user.length > 0) {
             // console.log(user);
+
             const token = jwt.sign({
                 username: req.body.username,
                 userID: user[0]._id
             }, process.env.JWT_SECRET, {
                 expiresIn: "1h"
             });
-
+            // res.send(token);
             console.log(token);
 
             res.status(200).json({
